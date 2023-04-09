@@ -93,7 +93,97 @@ function build_deck(amount_cards_int){
         </div>`
     }
 
+    setInterval(clock,1000)
     
 }
 
 
+function virarCarta(CardSelected) {
+    
+    
+    if(firstCardSelected == null && CardSelected.classList[2] !== 'confirm_par'){
+
+        jogadas++
+
+        firstCardSelected = CardSelected
+        classFirstCard = firstCardSelected.querySelector('.card_back').classList[0]
+
+        firstCardFront = firstCardSelected.querySelector(".card_front");
+        firstCardFront.classList.add("front");
+
+        firstCardBack = firstCardSelected.querySelector(".card_back");
+        firstCardBack.classList.add("back");
+
+        firstCardSelected.classList.add('card_up')
+
+    }
+
+    else if(secondCardSelected == null && CardSelected.classList[2] !== 'confirm_par'){
+
+        jogadas++
+
+        secondCardSelected = CardSelected
+        classSecondCard = secondCardSelected.querySelector('.card_back').classList[0]
+
+        secondCardFront = secondCardSelected.querySelector(".card_front");
+        secondCardFront.classList.add("front");
+
+        secondCardBack = secondCardSelected.querySelector(".card_back");
+        secondCardBack.classList.add("back");
+
+        secondCardSelected.classList.add('card_up')
+        
+        verificar_par(firstCardSelected, secondCardSelected, classFirstCard, classSecondCard)
+        
+    }
+
+    if(document.querySelectorAll('.confirm_par').length == amount_cards_int){
+        setTimeout(reset_game, 500)
+    }
+
+}
+
+function verificar_par(firstCardSelected, secondCardSelected, classFirstCard, classSecondCard){
+
+    if(classFirstCard == classSecondCard){
+        firstCardSelected.classList.add('confirm_par')
+        secondCardSelected.classList.add('confirm_par')
+
+        reset_cards(true)
+
+    } else{
+
+        const confirm_par = false
+        setTimeout(reset_cards, 1000, confirm_par)
+
+    }
+
+}
+
+function clock(){
+
+    clock = document.querySelector('.clock')
+    clock_count++
+    clock.innerHTML = clock_count
+    console.log(clock_count)
+}
+
+function reset_cards(confirm_par){
+    if(confirm_par == false){
+       firstCardFront.classList.remove("front");
+        firstCardBack.classList.remove("back");
+
+        secondCardFront.classList.remove("front");
+        secondCardBack.classList.remove("back"); 
+    }
+
+    firstCardFront = null
+    firstCardBack = null
+    firstCardSelected = null
+
+    secondCardFront = null
+    secondCardBack = null
+    secondCardSelected = null
+
+    
+}
