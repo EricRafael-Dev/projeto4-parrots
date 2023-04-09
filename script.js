@@ -193,7 +193,7 @@ function reset_cards(confirm_par){
 function reset_game(){
     alert(`Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${clock_count} segundos`)
 
-    let restart = prompt('Gostaria de reiniciar?');
+    let restart = prompt('Você gostaria de reiniciar a partida? (sim ou não)');
     let yes_or_no;
 
     while (yes_or_no == null){
