@@ -18,35 +18,36 @@ let secondCardBack;
 let secondCardSelected;
 let classSecondCard;
 
+verify_amount_cards()
 
+function verify_amount_cards(){
+    while (amount_okay == 'false'){
+        if(amount_cards_int != NaN){
 
+            if (amount_cards_int >= 4 && amount_cards_int <=14) {
 
-while (amount_okay == 'false'){
-    if(amount_cards_int != NaN){
+                if (amount_cards_int % 2 === 0){
 
-        if (amount_cards_int >= 4 && amount_cards_int <=14) {
+                    build_deck(amount_cards_int)
 
-            if (amount_cards_int % 2 === 0){
+                    amount_okay = 'true'
 
-                build_deck(amount_cards_int)
+                } else{
+                    amount_cards = prompt('Favor escolher um valor par entre 4 a 14')
+                    amount_cards_int = Number(amount_cards)
 
-                amount_okay = 'true'
+                }
 
-            } else{
+            } else {
                 amount_cards = prompt('Favor escolher um valor par entre 4 a 14')
                 amount_cards_int = Number(amount_cards)
 
             }
 
         } else {
-            amount_cards = prompt('Favor escolher um valor par entre 4 a 14')
+            amount_cards = prompt('Favor escolher um valor numérico entre 4 a 14')
             amount_cards_int = Number(amount_cards)
-
         }
-
-    } else {
-        amount_cards = prompt('Favor escolher um valor numérico entre 4 a 14')
-        amount_cards_int = Number(amount_cards)
     }
 }
 
@@ -66,6 +67,7 @@ function build_deck(amount_cards_int){
 
     var deck = document.querySelector(".cards")
     
+    deck.innerHTML = ''
 
     let array_combined =[]
     
@@ -83,12 +85,12 @@ function build_deck(amount_cards_int){
         
         //Mostra a quantidade de cartas embaralhadas
 
-        deck.innerHTML += `<div onclick="virarCarta(this)" class="card">
+        deck.innerHTML += `<div data-test="card" onclick="virarCarta(this)" class="card">
             <div class="card_front face">
-              <img src="./Assets/back.png">
+              <img data-test="face-down-image" src="./Assets/back.png">
             </div>
             <div class="${list_combined[j].slice(0,(list_combined[j].length)-4)} card_back back-face face" id=''>
-              <img src="./Assets/Deck/${list_combined[j]}">
+              <img data-test="face-up-image" src="./Assets/Deck/${list_combined[j]}">
             </div>
         </div>`
     }
@@ -163,9 +165,9 @@ function verificar_par(firstCardSelected, secondCardSelected, classFirstCard, cl
 function clock(){
 
     clock = document.querySelector('.clock')
+
     clock_count++
     clock.innerHTML = clock_count
-    console.log(clock_count)
 }
 
 function reset_cards(confirm_par){
@@ -186,4 +188,41 @@ function reset_cards(confirm_par){
     secondCardSelected = null
 
     
+}
+
+function reset_game(){
+    alert(`Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${clock_count} segundos`)
+
+    let restart = prompt('Gostaria de reiniciar?');
+    let yes_or_no;
+
+    while (yes_or_no == null){
+        console.log(restart)
+
+        if (restart === 'sim' || restart === 'não'){
+            break
+        }
+
+        restart = prompt('Gostaria de reiniciar? (Favor inserir "sim" ou "não")') // sim ou não
+
+        
+
+        
+    }
+
+
+    if (restart === 'sim'){
+
+        amount_cards = prompt('Com quantas cartas gostaria de jogar? (Escolha um número par entre 4 a 14)')
+        amount_cards_int = Number(amount_cards)
+        amount_okay = 'false'
+        jogadas = 0
+        clock_count = 0
+
+        reset_cards()
+        verify_amount_cards()
+    } else if (restart === 'não'){
+        return
+    }
+
 }
