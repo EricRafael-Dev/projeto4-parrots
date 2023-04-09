@@ -203,7 +203,7 @@ function reset_game(){
             break
         }
 
-        restart = prompt('Gostaria de reiniciar? (Favor inserir "sim" ou "não")') // sim ou não
+        restart = prompt('Você gostaria de reiniciar a partida? (sim ou não)') // sim ou não
 
         
 
